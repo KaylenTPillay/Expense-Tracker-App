@@ -12,10 +12,10 @@
 ## 🧩 Architecture
 - **Coming Soon**
 
-## 🔀 Branching Stratergy
-- The project uses the [Git Flow](#) branching stratergy.
+## 🔀 Branching Strategy
+- The project uses the [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) branching strategy.
 - The `main` branch represents the production environment.
-- The `development` branch represents the developement environment.
+- The `development` branch represents the development environment.
 - The `feature-xxx` branch represents feature work.
 
 ## 🗂️ Project Management
