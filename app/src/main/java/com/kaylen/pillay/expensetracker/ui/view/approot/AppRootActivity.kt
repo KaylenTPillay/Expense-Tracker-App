@@ -1,12 +1,15 @@
 package com.kaylen.pillay.expensetracker.ui.view.approot
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.kaylen.pillay.expensetracker.ui.theme.ExpenseTrackerTheme
-import com.kaylen.pillay.expensetracker.ui.view.developersetting.colourpalette.DevSettingsColourPaletteScreen
-import com.kaylen.pillay.expensetracker.ui.view.developersetting.colourpalette.state.DevSettingsColourPaletteStateModel
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.DashboardScreen
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.event.DashboardScreenEventContract
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardStateModel
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.TopAppBarSharedStateModel
 
 /*
  * Designed and developed by Kaylen Travis Pillay.
@@ -26,14 +29,26 @@ import com.kaylen.pillay.expensetracker.ui.view.developersetting.colourpalette.s
 
 class AppRootActivity : ComponentActivity() {
 
-    private val colourPaletteDemoState = DevSettingsColourPaletteStateModel()
+    private val demoState = DashboardStateModel(
+        topAppBar = TopAppBarSharedStateModel(title = "Expense Tracker App", navigationIcon = true)
+    )
+
+    private val eventContract: DashboardScreenEventContract =
+        object : DashboardScreenEventContract {
+
+            override fun onTopAppBarNavigationIconClick() {
+                Toast.makeText(this@AppRootActivity, "Navigation Icon Click", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ExpenseTrackerTheme {
-                DevSettingsColourPaletteScreen(state = colourPaletteDemoState)
+                DashboardScreen(state = demoState, eventContract = eventContract)
             }
         }
     }
