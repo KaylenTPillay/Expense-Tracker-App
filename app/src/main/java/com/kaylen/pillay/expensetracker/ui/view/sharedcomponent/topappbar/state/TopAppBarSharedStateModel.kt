@@ -18,5 +18,6 @@ package com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state
 
 data class TopAppBarSharedStateModel(
     val title: String,
+    val subtitle: String? = null,
     val navigationIcon: Boolean = false
 )
