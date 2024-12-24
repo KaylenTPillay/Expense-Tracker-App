@@ -1,5 +1,6 @@
 package com.kaylen.pillay.expensetracker.ui.view.dashboard.event
 
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.event.BottomAppBarSharedEventContract
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.TopAppBarSharedEventContract
 
 /*
@@ -19,4 +20,5 @@ import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.
  */
 
 interface DashboardScreenEventContract :
-    TopAppBarSharedEventContract
+    TopAppBarSharedEventContract,
+    BottomAppBarSharedEventContract

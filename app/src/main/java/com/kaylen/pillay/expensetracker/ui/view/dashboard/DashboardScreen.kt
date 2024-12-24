@@ -2,6 +2,8 @@ package com.kaylen.pillay.expensetracker.ui.view.dashboard
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,8 +12,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kaylen.pillay.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.event.DashboardScreenEventContract
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardStateModel
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.BottomAppBarSharedComponent
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedOptionStateModel
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.TopAppBarSharedComponent
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.TopAppBarSharedStateModel
+import kotlinx.collections.immutable.toImmutableList
 
 /*
  * Designed and developed by Kaylen Travis Pillay.
@@ -42,6 +48,12 @@ internal fun DashboardScreen(
                 state = state.topAppBar,
                 eventContract = eventContract
             )
+        },
+        bottomBar = {
+            BottomAppBarSharedComponent(
+                state = state.bottomAppBar,
+                eventContract = eventContract
+            )
         }
     ) { contentInsets ->
         Text(
@@ -54,6 +66,16 @@ internal fun DashboardScreen(
 private val previewState = DashboardStateModel(
     topAppBar = TopAppBarSharedStateModel(
         title = "Expense Tracker App"
+    ),
+    bottomAppBar = BottomAppBarSharedStateModel(
+        options = listOf(
+            BottomAppBarSharedOptionStateModel(
+                id = "Option-1",
+                contentDescription = "Option 1",
+                imageVector = Icons.Default.Add
+            )
+        ).toImmutableList(),
+        floatingActionButtonCTA = "Add Expense"
     )
 )
 
