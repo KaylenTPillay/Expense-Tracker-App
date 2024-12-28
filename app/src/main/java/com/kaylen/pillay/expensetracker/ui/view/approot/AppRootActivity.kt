@@ -65,7 +65,7 @@ class AppRootActivity : ComponentActivity() {
                     imageVector = Icons.Default.Settings
                 )
             ).toImmutableList(),
-            floatingActionButtonCTA = "Add Expense"
+            floatingActionButtonCTA = "New"
         )
     )
 

@@ -1,14 +1,26 @@
 package com.kaylen.pillay.expensetracker.ui.view.dashboard
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.kaylen.pillay.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.event.DashboardScreenEventContract
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardStateModel
@@ -56,11 +68,65 @@ internal fun DashboardScreen(
             )
         }
     ) { contentInsets ->
-        Text(
-            modifier = Modifier.padding(contentInsets),
-            text = "Hi, I'm the expense tracker app."
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentInsets)
+                .padding(horizontal = 16.dp)
+                .padding(top = 16.dp)
+        ) {
+            DashboardTransactionSummary(modifier = Modifier.fillMaxWidth())
+        }
     }
+}
+
+@Composable
+private fun DashboardTransactionSummary(
+    modifier: Modifier = Modifier
+) {
+    OutlinedCard(modifier = modifier) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            DashboardTransactionSummaryTitle()
+            DashboardTransactionSummarySubtitle()
+        }
+    }
+}
+
+@Composable
+private fun DashboardTransactionSummaryTitle() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            modifier = Modifier
+                .padding(start = 16.dp),
+            text = "Transaction Summary",
+            style = MaterialTheme.typography.titleSmall
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        TextButton(
+            onClick = {},
+            modifier = Modifier
+                .padding(end = 4.dp)
+        ) {
+            Text("View More")
+        }
+    }
+}
+
+@Composable
+private fun DashboardTransactionSummarySubtitle() {
+    Text(
+        modifier = Modifier
+            .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
+        style = MaterialTheme.typography.labelMedium,
+        text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+    )
 }
 
 private val previewState = DashboardStateModel(
@@ -75,7 +141,7 @@ private val previewState = DashboardStateModel(
                 imageVector = Icons.Default.Add
             )
         ).toImmutableList(),
-        floatingActionButtonCTA = "Add Expense"
+        floatingActionButtonCTA = "Add"
     )
 )
 
@@ -96,5 +162,21 @@ private fun PreviewDashboardScreen_Day() {
 
     ExpenseTrackerTheme {
         DashboardScreen(previewState, previewEventContract)
+    }
+}
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun PreviewDashboardTransactionSummary_Night() {
+    ExpenseTrackerTheme {
+        DashboardTransactionSummary()
+    }
+}
+
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+private fun PreviewDashboardTransactionSummary_Day() {
+    ExpenseTrackerTheme {
+        DashboardTransactionSummary()
     }
 }
