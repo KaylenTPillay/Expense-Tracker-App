@@ -1,8 +1,8 @@
-package com.kaylen.pillay.expensetracker.ui.view.dashboard.event
+package com.kaylen.pillay.expensetracker.ui.view.dashboard.state
 
-import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.event.DashboardSummaryEventContract
-import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.event.BottomAppBarSharedEventContract
-import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.TopAppBarSharedEventContract
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.state.DashboardSummaryStateModel
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.transactionsummary.state.TransactionSummarySharedStateModel
+import kotlinx.collections.immutable.ImmutableList
 
 /*
  * Designed and developed by Kaylen Travis Pillay.
@@ -20,7 +20,11 @@ import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.
  * limitations under the License.
  */
 
-interface DashboardScreenEventContract :
-    TopAppBarSharedEventContract,
-    BottomAppBarSharedEventContract,
-    DashboardSummaryEventContract
+sealed class DashboardSummaryItemStateModel {
+
+    data class TransactionSummary(
+        val summary: DashboardSummaryStateModel,
+        val transactionSummary: ImmutableList<TransactionSummarySharedStateModel>
+    ) : DashboardSummaryItemStateModel()
+
+}

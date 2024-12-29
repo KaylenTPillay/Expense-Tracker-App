@@ -2,6 +2,7 @@ package com.kaylen.pillay.expensetracker.ui.view.dashboard.state
 
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.TopAppBarSharedStateModel
+import kotlinx.collections.immutable.ImmutableList
 
 /*
  * Designed and developed by Kaylen Travis Pillay.
@@ -21,5 +22,6 @@ import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.
 
 data class DashboardStateModel(
     val topAppBar: TopAppBarSharedStateModel,
-    val bottomAppBar: BottomAppBarSharedStateModel
+    val bottomAppBar: BottomAppBarSharedStateModel,
+    val summaryItems: ImmutableList<DashboardSummaryItemStateModel>
 )
