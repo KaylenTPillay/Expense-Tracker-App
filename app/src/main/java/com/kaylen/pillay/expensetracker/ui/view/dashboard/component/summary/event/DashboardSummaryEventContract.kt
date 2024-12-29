@@ -1,5 +1,7 @@
 package com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.event
 
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.transactionsummary.state.TransactionSummarySharedStateModel
+
 /*
  * Designed and developed by Kaylen Travis Pillay.
  *
@@ -19,5 +21,7 @@ package com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.eve
 interface DashboardSummaryEventContract {
 
     fun onDashboardSummaryExpandClick()
+
+    fun onDashboardSummaryTransactionClick(state: TransactionSummarySharedStateModel)
 
 }

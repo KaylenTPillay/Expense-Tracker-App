@@ -108,7 +108,7 @@ private fun DashboardSummaryTransaction(
                 TransactionSummarySharedComponent(
                     state = transaction,
                     modifier = Modifier
-                        .clickable {  }
+                        .clickable { eventContract?.onDashboardSummaryTransactionClick(transaction) }
                         .padding(horizontal = 16.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -140,6 +140,7 @@ private val previewState = DashboardStateModel(
             ),
             transactionSummary = listOf(
                 TransactionSummarySharedStateModel(
+                    id = "001",
                     date = "27/12/2024",
                     amount = "R121.30",
                     category = "\uD83E\uDD58 Food",

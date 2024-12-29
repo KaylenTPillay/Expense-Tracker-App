@@ -88,6 +88,7 @@ internal fun TransactionSummarySharedComponent(
 }
 
 private val previewState = TransactionSummarySharedStateModel(
+    id = "001",
     date = "27/12/2024",
     amount = "R121.30",
     category = "\uD83E\uDD58 Food",

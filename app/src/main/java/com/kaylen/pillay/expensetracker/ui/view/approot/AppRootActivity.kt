@@ -78,6 +78,7 @@ class AppRootActivity : ComponentActivity() {
                 ),
                 transactionSummary = listOf(
                     TransactionSummarySharedStateModel(
+                        id = "001",
                         date = "27/12/2024",
                         amount = "R121.30",
                         category = "\uD83E\uDD58 Food",
@@ -85,6 +86,7 @@ class AppRootActivity : ComponentActivity() {
                         note = "Bought some KFC for a group of friends"
                     ),
                     TransactionSummarySharedStateModel(
+                        id = "002",
                         date = "27/12/2024",
                         amount = "R6999.00",
                         category = "\uD83D\uDD79\uFE0F Gaming",
@@ -92,6 +94,7 @@ class AppRootActivity : ComponentActivity() {
                         note = "PS5 purchase"
                     ),
                     TransactionSummarySharedStateModel(
+                        id = "003",
                         date = "27/12/2024",
                         amount = "R235.50",
                         category = "Insurance",
@@ -128,6 +131,14 @@ class AppRootActivity : ComponentActivity() {
                 Toast.makeText(
                     this@AppRootActivity,
                     "Summary item clicked",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onDashboardSummaryTransactionClick(state: TransactionSummarySharedStateModel) {
+                Toast.makeText(
+                    this@AppRootActivity,
+                    "Transaction Summary item clicked: ${state.id}",
                     Toast.LENGTH_SHORT
                 ).show()
             }

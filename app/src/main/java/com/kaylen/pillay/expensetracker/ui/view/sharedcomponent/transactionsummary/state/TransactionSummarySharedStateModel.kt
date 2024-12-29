@@ -17,6 +17,7 @@ package com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.transactionsumm
  */
 
 data class TransactionSummarySharedStateModel(
+    val id: String,
     val date: String,
     val amount: String,
     val category: String,
