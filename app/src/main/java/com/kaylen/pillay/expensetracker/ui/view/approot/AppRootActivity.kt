@@ -10,11 +10,14 @@ import androidx.compose.material.icons.filled.Settings
 import com.kaylen.pillay.expensetracker.R
 import com.kaylen.pillay.expensetracker.ui.theme.ExpenseTrackerTheme
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.DashboardScreen
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.state.DashboardSummaryStateModel
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.event.DashboardScreenEventContract
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardStateModel
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardSummaryItemStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedOptionStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.TopAppBarSharedStateModel
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.transactionsummary.state.TransactionSummarySharedStateModel
 import kotlinx.collections.immutable.toImmutableList
 
 /*
@@ -38,8 +41,7 @@ class AppRootActivity : ComponentActivity() {
     private val demoState = DashboardStateModel(
         topAppBar = TopAppBarSharedStateModel(
             title = "Expense Tracker",
-            subtitle = "Dashboard",
-            navigationIcon = true
+            subtitle = "Dashboard"
         ),
         bottomAppBar = BottomAppBarSharedStateModel(
             options = listOf(
@@ -65,8 +67,43 @@ class AppRootActivity : ComponentActivity() {
                     imageVector = Icons.Default.Settings
                 )
             ).toImmutableList(),
-            floatingActionButtonCTA = "Add Expense"
-        )
+            floatingActionButtonCTA = "New"
+        ),
+        summaryItems = listOf(
+            DashboardSummaryItemStateModel.TransactionSummary(
+                summary = DashboardSummaryStateModel(
+                    title = "Transaction Summary",
+                    subtitle = "The last 3 transactions logged. Selecting 'View More' will provide you with a more detailed account of your transactions.",
+                    expandCTATitle = "View More"
+                ),
+                transactionSummary = listOf(
+                    TransactionSummarySharedStateModel(
+                        id = "001",
+                        date = "27/12/2024",
+                        amount = "R121.30",
+                        category = "\uD83E\uDD58 Food",
+                        account = "Demo Amex",
+                        note = "Bought some KFC for a group of friends"
+                    ),
+                    TransactionSummarySharedStateModel(
+                        id = "002",
+                        date = "27/12/2024",
+                        amount = "R6999.00",
+                        category = "\uD83D\uDD79\uFE0F Gaming",
+                        account = "Demo Standard Bank",
+                        note = "PS5 purchase"
+                    ),
+                    TransactionSummarySharedStateModel(
+                        id = "003",
+                        date = "27/12/2024",
+                        amount = "R235.50",
+                        category = "Insurance",
+                        account = "Demo Amex",
+                        note = "Paid life insurance"
+                    )
+                ).toImmutableList()
+            )
+        ).toImmutableList()
     )
 
     private val eventContract: DashboardScreenEventContract =
@@ -86,6 +123,22 @@ class AppRootActivity : ComponentActivity() {
                 Toast.makeText(
                     this@AppRootActivity,
                     "Bottom App Bar Option Click: $optionId",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onDashboardSummaryExpandClick() {
+                Toast.makeText(
+                    this@AppRootActivity,
+                    "Summary item clicked",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onDashboardSummaryTransactionClick(state: TransactionSummarySharedStateModel) {
+                Toast.makeText(
+                    this@AppRootActivity,
+                    "Transaction Summary item clicked: ${state.id}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
