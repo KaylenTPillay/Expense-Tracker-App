@@ -22,9 +22,11 @@ import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.stat
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.event.DashboardScreenEventContract
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardStateModel
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardSummaryItemStateModel
+import com.kaylen.pillay.expensetracker.ui.view.managetransaction.ManageTransactionComponent
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.BottomAppBarSharedComponent
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedOptionStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedStateModel
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.fullscreendialog.FullScreenDialogSharedComponent
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.TopAppBarSharedComponent
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.TopAppBarSharedStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.transactionsummary.TransactionSummarySharedComponent
@@ -53,6 +55,22 @@ internal fun DashboardScreen(
     eventContract: DashboardScreenEventContract?,
     modifier: Modifier = Modifier
 ) {
+    if (state.fullScreenDialog != null) {
+        FullScreenDialogSharedComponent(
+            state = state.fullScreenDialog
+        ) { contentPadding ->
+            when {
+                state.manageTransactionState != null -> {
+                    ManageTransactionComponent(
+                        state = state.manageTransactionState,
+                        eventContract = null,
+                        modifier = Modifier.padding(contentPadding)
+                    )
+                }
+            }
+        }
+    }
+
     Scaffold(
         modifier = modifier,
         topBar = {
