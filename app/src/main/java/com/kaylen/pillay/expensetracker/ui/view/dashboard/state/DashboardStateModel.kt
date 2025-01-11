@@ -1,5 +1,6 @@
 package com.kaylen.pillay.expensetracker.ui.view.dashboard.state
 
+import com.kaylen.pillay.expensetracker.ui.view.managetransaction.state.ManageTransactionStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.fullscreendialog.state.FullScreenDialogSharedStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.TopAppBarSharedStateModel
@@ -25,5 +26,6 @@ data class DashboardStateModel(
     val topAppBar: TopAppBarSharedStateModel,
     val bottomAppBar: BottomAppBarSharedStateModel,
     val summaryItems: ImmutableList<DashboardSummaryItemStateModel>,
-    val fullScreenDialog: FullScreenDialogSharedStateModel? = null
+    val fullScreenDialog: FullScreenDialogSharedStateModel? = null,
+    val manageTransactionState: ManageTransactionStateModel? = null
 )

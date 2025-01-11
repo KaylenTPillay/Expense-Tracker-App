@@ -14,8 +14,10 @@ import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.stat
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.event.DashboardScreenEventContract
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardStateModel
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardSummaryItemStateModel
+import com.kaylen.pillay.expensetracker.ui.view.managetransaction.state.ManageTransactionStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedOptionStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedStateModel
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.fullscreendialog.state.FullScreenDialogSharedStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.TopAppBarSharedStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.transactionsummary.state.TransactionSummarySharedStateModel
 import kotlinx.collections.immutable.toImmutableList
@@ -103,7 +105,15 @@ class AppRootActivity : ComponentActivity() {
                     )
                 ).toImmutableList()
             )
-        ).toImmutableList()
+        ).toImmutableList(),
+        fullScreenDialog = FullScreenDialogSharedStateModel(
+            topAppBar = TopAppBarSharedStateModel(
+                title = "Expense Tracker",
+                subtitle = "Manage Transaction",
+                navigationIcon = true
+            )
+        ),
+        manageTransactionState = ManageTransactionStateModel()
     )
 
     private val eventContract: DashboardScreenEventContract =
