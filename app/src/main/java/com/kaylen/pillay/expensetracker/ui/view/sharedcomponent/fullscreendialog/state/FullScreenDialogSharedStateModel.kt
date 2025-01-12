@@ -1,8 +1,6 @@
-package com.kaylen.pillay.expensetracker.ui.view.dashboard.event
+package com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.fullscreendialog.state
 
-import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.event.DashboardSummaryEventContract
-import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.event.BottomAppBarSharedEventContract
-import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.TopAppBarSharedEventContract
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.TopAppBarSharedStateModel
 
 /*
  * Designed and developed by Kaylen Travis Pillay.
@@ -20,7 +18,6 @@ import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.
  * limitations under the License.
  */
 
-interface DashboardScreenEventContract :
-    TopAppBarSharedEventContract,
-    BottomAppBarSharedEventContract,
-    DashboardSummaryEventContract
+data class FullScreenDialogSharedStateModel(
+    val topAppBar: TopAppBarSharedStateModel
+)

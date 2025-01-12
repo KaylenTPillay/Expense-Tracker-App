@@ -1,8 +1,8 @@
-package com.kaylen.pillay.expensetracker.ui.view.dashboard.event
+package com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.emptystate.state
 
-import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.event.DashboardSummaryEventContract
-import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.event.BottomAppBarSharedEventContract
-import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.TopAppBarSharedEventContract
+import androidx.annotation.DrawableRes
+import androidx.compose.ui.graphics.Color
+import com.kaylen.pillay.expensetracker.R
 
 /*
  * Designed and developed by Kaylen Travis Pillay.
@@ -20,7 +20,16 @@ import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.
  * limitations under the License.
  */
 
-interface DashboardScreenEventContract :
-    TopAppBarSharedEventContract,
-    BottomAppBarSharedEventContract,
-    DashboardSummaryEventContract
+sealed class EmptyStateSharedIconType {
+
+    @get:DrawableRes
+    abstract val iconRes: Int
+
+    open val colour: Color? = null
+
+    data object Wallet : EmptyStateSharedIconType() {
+        override val iconRes: Int = R.drawable.icon_wallet
+        override val colour: Color = Color.Unspecified
+    }
+
+}

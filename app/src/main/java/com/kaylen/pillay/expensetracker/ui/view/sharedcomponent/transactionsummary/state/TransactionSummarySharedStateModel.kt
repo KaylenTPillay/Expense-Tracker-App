@@ -1,8 +1,4 @@
-package com.kaylen.pillay.expensetracker.ui.view.dashboard.event
-
-import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.event.DashboardSummaryEventContract
-import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.event.BottomAppBarSharedEventContract
-import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.TopAppBarSharedEventContract
+package com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.transactionsummary.state
 
 /*
  * Designed and developed by Kaylen Travis Pillay.
@@ -20,7 +16,11 @@ import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.event.
  * limitations under the License.
  */
 
-interface DashboardScreenEventContract :
-    TopAppBarSharedEventContract,
-    BottomAppBarSharedEventContract,
-    DashboardSummaryEventContract
+data class TransactionSummarySharedStateModel(
+    val id: String,
+    val date: String,
+    val amount: String,
+    val category: String,
+    val account: String,
+    val note: String
+)

@@ -1,22 +1,36 @@
 package com.kaylen.pillay.expensetracker.ui.view.dashboard
 
 import android.content.res.Configuration
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.kaylen.pillay.expensetracker.ui.theme.ExpenseTrackerTheme
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.DashboardSummaryComponent
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.event.DashboardSummaryEventContract
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.component.summary.state.DashboardSummaryStateModel
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.event.DashboardScreenEventContract
 import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardStateModel
+import com.kaylen.pillay.expensetracker.ui.view.dashboard.state.DashboardSummaryItemStateModel
+import com.kaylen.pillay.expensetracker.ui.view.managetransaction.ManageTransactionComponent
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.BottomAppBarSharedComponent
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedOptionStateModel
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.bottomappbar.state.BottomAppBarSharedStateModel
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.fullscreendialog.FullScreenDialogSharedComponent
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.TopAppBarSharedComponent
 import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.topappbar.state.TopAppBarSharedStateModel
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.transactionsummary.TransactionSummarySharedComponent
+import com.kaylen.pillay.expensetracker.ui.view.sharedcomponent.transactionsummary.state.TransactionSummarySharedStateModel
 import kotlinx.collections.immutable.toImmutableList
 
 /*
@@ -41,6 +55,22 @@ internal fun DashboardScreen(
     eventContract: DashboardScreenEventContract?,
     modifier: Modifier = Modifier
 ) {
+    if (state.fullScreenDialog != null) {
+        FullScreenDialogSharedComponent(
+            state = state.fullScreenDialog
+        ) { contentPadding ->
+            when {
+                state.manageTransactionState != null -> {
+                    ManageTransactionComponent(
+                        state = state.manageTransactionState,
+                        eventContract = null,
+                        modifier = Modifier.padding(contentPadding)
+                    )
+                }
+            }
+        }
+    }
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -56,10 +86,52 @@ internal fun DashboardScreen(
             )
         }
     ) { contentInsets ->
-        Text(
-            modifier = Modifier.padding(contentInsets),
-            text = "Hi, I'm the expense tracker app."
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentInsets)
+                .padding(horizontal = 16.dp)
+                .padding(top = 16.dp)
+        ) {
+            state.summaryItems.forEach { item ->
+                when (item) {
+                    is DashboardSummaryItemStateModel.TransactionSummary -> {
+                        DashboardSummaryTransaction(
+                            state = item,
+                            eventContract = eventContract
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DashboardSummaryTransaction(
+    state: DashboardSummaryItemStateModel.TransactionSummary,
+    eventContract: DashboardSummaryEventContract?,
+    modifier: Modifier = Modifier
+) {
+    DashboardSummaryComponent(
+        modifier = modifier.fillMaxWidth(),
+        state = state.summary,
+        eventContract = eventContract
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(top = 16.dp)
+        ) {
+            state.transactionSummary.forEach { transaction ->
+                TransactionSummarySharedComponent(
+                    state = transaction,
+                    modifier = Modifier
+                        .clickable { eventContract?.onDashboardSummaryTransactionClick(transaction) }
+                        .padding(horizontal = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+        }
     }
 }
 
@@ -75,8 +147,27 @@ private val previewState = DashboardStateModel(
                 imageVector = Icons.Default.Add
             )
         ).toImmutableList(),
-        floatingActionButtonCTA = "Add Expense"
-    )
+        floatingActionButtonCTA = "Add"
+    ),
+    summaryItems = listOf(
+        DashboardSummaryItemStateModel.TransactionSummary(
+            summary = DashboardSummaryStateModel(
+                title = "Transaction Summary",
+                subtitle = "The last 3 transactions logged. Selecting 'View More' will provide you with a more detailed account of your transactions.",
+                expandCTATitle = "View More"
+            ),
+            transactionSummary = listOf(
+                TransactionSummarySharedStateModel(
+                    id = "001",
+                    date = "27/12/2024",
+                    amount = "R121.30",
+                    category = "\uD83E\uDD58 Food",
+                    account = "Demo Amex",
+                    note = "Bought some KFC for a group of friends"
+                )
+            ).toImmutableList()
+        )
+    ).toImmutableList()
 )
 
 @Preview(showSystemUi = true, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
