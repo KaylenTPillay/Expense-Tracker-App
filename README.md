@@ -57,3 +57,7 @@ The following illustrates the package structure used for the project:
 
 ## 👀 Demo
 - **Coming Soon**
+
+## Attribution
+### Icon Attribution
+- [Wallet SVG - Marta Konyk](https://www.svgrepo.com/svg/415743/banking-cash-money)
